@@ -1,26 +1,127 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --beige: #D9C4A8;
+  --beige-light: #EDE0CC;
+  --beige-dark: #C4A882;
+  --terracotta: #C4714A;
+  --terracotta-dark: #A85C38;
+  --brown: #3B2A1A;
+  --brown-mid: #6B4C30;
+  --cream: #F5ECD8;
+  --shadow-card: 0 2px 12px rgba(59,42,26,0.07);
+  --shadow-lifted: 0 6px 24px rgba(59,42,26,0.13);
+  --shadow-phone: 0 48px 96px rgba(30,12,0,0.45), 0 0 0 1px rgba(255,255,255,0.08);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-cream: #F5ECD8;
+  --color-beige: #D9C4A8;
+  --color-beige-light: #EDE0CC;
+  --color-beige-dark: #C4A882;
+  --color-terracotta: #C4714A;
+  --color-terracotta-dark: #A85C38;
+  --color-brown: #3B2A1A;
+  --color-brown-mid: #6B4C30;
+  --font-sans: var(--font-lora), Georgia, serif;
+  --font-body: var(--font-inter), system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #F5ECD8;
+  color: #3B2A1A;
+  font-family: var(--font-body);
 }
+
+h1, h2, h3 {
+  font-family: var(--font-lora), Georgia, serif;
+}
+
+/* ── App Shell ── */
+/* Mobile: full screen */
+.desktop-bg {
+  min-height: 100svh;
+  background: #F5ECD8;
+}
+
+.phone-frame {
+  width: 100%;
+  min-height: 100svh;
+  position: relative;
+  background: #F5ECD8;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Tablet/Desktop: centered phone mockup */
+@media (min-width: 768px) {
+  .desktop-bg {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 24px;
+    background: linear-gradient(135deg, #C4A882 0%, #D9C4A8 40%, #EDE0CC 100%);
+  }
+
+  .phone-frame {
+    width: 390px;
+    min-height: 0;
+    height: min(844px, calc(100vh - 64px));
+    border-radius: 48px;
+    box-shadow: var(--shadow-phone);
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+}
+
+/* ── Utilities ── */
+.no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+.tappable { transition: transform 120ms ease, opacity 120ms ease; cursor: pointer; }
+.tappable:active { transform: scale(0.97); opacity: 0.88; }
+
+.item-checked { opacity: 0.5; }
+
+/* ── Animations ── */
+@keyframes scan-line {
+  0%   { top: 4%; }
+  100% { top: 92%; }
+}
+.scan-line { animation: scan-line 1.6s ease-in-out infinite alternate; }
+
+@keyframes pop-in {
+  0%   { transform: scale(0.88); opacity: 0; }
+  100% { transform: scale(1);    opacity: 1; }
+}
+.pop-in { animation: pop-in 220ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+
+@keyframes fade-up {
+  0%   { transform: translateY(16px); opacity: 0; }
+  100% { transform: translateY(0);    opacity: 1; }
+}
+.fade-up { animation: fade-up 400ms ease forwards; }
+.fade-up-delay-1 { animation: fade-up 400ms 100ms ease both; }
+.fade-up-delay-2 { animation: fade-up 400ms 200ms ease both; }
+.fade-up-delay-3 { animation: fade-up 400ms 320ms ease both; }
+.fade-up-delay-4 { animation: fade-up 400ms 440ms ease both; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(var(--r, 0deg)); }
+  50%       { transform: translateY(-8px) rotate(var(--r, 0deg)); }
+}
+.float { animation: float var(--dur, 4s) ease-in-out infinite; }
+
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #C4A882; border-radius: 2px; }
