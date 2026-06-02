@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import BottomNav from "../components/BottomNav";
 import AppShell from "../components/AppShell";
 
@@ -26,10 +26,10 @@ const allMeals: Meal[] = [
   { id: 8, name: "Beef Tacos", emoji: "🌮", time: "30 min", difficulty: "Medium", tags: ["High Protein"], saved: false, desc: "Spiced beef, fresh salsa, lime crema." },
 ];
 
-const difficultyColor = {
-  Easy: { bg: "#D4E8D4", text: "#2A5A2A" },
-  Medium: { bg: "#F0DDB8", text: "#7A4A10" },
-  Hard: { bg: "#F0CECE", text: "#7A1010" },
+const difficultyColor: Record<string, React.CSSProperties> = {
+  Easy:   { backgroundColor: "#D4E8D4", color: "#2A5A2A" },
+  Medium: { backgroundColor: "#F0DDB8", color: "#7A4A10" },
+  Hard:   { backgroundColor: "#F0CECE", color: "#7A1010" },
 };
 
 const filters = ["All", "Easy", "Quick", "Vegan", "Vegetarian", "High Protein"];
